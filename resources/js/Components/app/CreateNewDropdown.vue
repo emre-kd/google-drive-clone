@@ -19,45 +19,48 @@
                 class="absolute left-0 mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
                 <div class="px-1 py-1">
-                    <MenuItem v-slot="{  }">
-                        <a href="#" 
+                    <MenuItem v-slot="{   }">
+                        <a href="#"  @click.prevent="showCreateFolderModal"
                            class="text-gray-700 block px-4 py-2 text-sm">
                             New Folder
                         </a>
                     </MenuItem>
                 </div>
                 <div class="px-1 py-1">
-                 <MenuItem v-slot="{  }">
-                        <a href="#" 
-                           class="text-gray-700 block px-4 py-2 text-sm">
-                            Upload Files
-                        </a>
-                    </MenuItem>
-                     <MenuItem v-slot="{  }">
-                        <a href="#" 
-                           class="text-gray-700 block px-4 py-2 text-sm">
-                            Upload Folder
-                        </a>
-                    </MenuItem>
+                    <FileUploadMenuItem />
+
+                    <FolderUploadMenuItem />
+           
+                  
                 </div>
             </MenuItems>
         </transition>
     </Menu>
+    <CreateFolderModal  v-model="createFolderModal" />
 </template>
 
 <script setup>
 // Imports
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
+import CreateFolderModal from "@/Components/app/CreateFolderModal.vue";
+import {ref} from "vue";
+import FolderUploadMenuItem from "@/Components/app/FolderUploadMenuItem.vue";
+import FileUploadMenuItem from "@/Components/app/FileUploadMenuItem.vue";
 
 // Uses
 
 // Refs
+const createFolderModal = ref(false)
 
 // Props & Emit
 
 // Computed
 
 // Methods
+function showCreateFolderModal (){
+    createFolderModal.value = true
+
+}
 
 
 // Hooks
