@@ -298,7 +298,7 @@ class FileController extends Controller
         $parent->appendNode($model);
 
         // TODO start background job for file upload
-        UploadFileToCloudJob::dispatch($model);
+       UploadFileToCloudJob::dispatch($model);
 
         
     }
@@ -306,13 +306,13 @@ class FileController extends Controller
     public function createZip($files): string {
 
         $zipPath = 'zip/'. Str::random() . '.zip';
-        $publicPath = "public/$zipPath";
+        $publicPath = "$zipPath";
 
         if(!is_dir(dirname($publicPath))) {
-            Storage::makeDirectory(dirname($publicPath));
+            Storage::disk('public')->makeDirectory(dirname($publicPath));
         }
 
-        $zipFile = Storage::path($publicPath);
+        $zipFile = Storage::disk('public')->path($publicPath);
         $zip = new \ZipArchive();
 
         if ($zip->open($zipFile, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
